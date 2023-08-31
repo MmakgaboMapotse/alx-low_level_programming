@@ -6,8 +6,8 @@
 */
 void print_binary(unsigned long int n)
 {
-	int i,
-	unsigned long int current;
+	int i;
+	int started = 0;
 
 	if (n == 0)
 	{
@@ -15,9 +15,7 @@ void print_binary(unsigned long int n)
 	return;
 	}
 
-	int started = 0;
-
-	for (int i = 63; i >= 0; i--)
+	for (i = 63; i >= 0; i--)
 	{
 	if ((n >> i) & 1)
 	{
