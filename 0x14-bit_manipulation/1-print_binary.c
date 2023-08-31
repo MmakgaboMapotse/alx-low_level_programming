@@ -6,6 +6,9 @@
 */
 void print_binary(unsigned long int n)
 {
+	int i,
+	unsigned long int current;
+
 	if (n == 0)
 	{
 	_putchar('0');
