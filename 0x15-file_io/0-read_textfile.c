@@ -1,48 +1,53 @@
 #include "main.h"
+#include <stdio.h>
 #include <stdlib.h>
+#include <fcntl.h>
+#include <unistd.h>
 
 /**
-	* custom_read_and_print - Read text file and print to STDOUT.
-	* @filename: The name of the text file to be read.
-	* @letters: The number of letters to be read and printed.
-	*
-	* Return: The actual number of bytes read and printed, or 0 on failure.
+	* read_textfile - reads and prints a text file to stdout
+	* @filename: name of the file to read
+	* @letters: number of letters to read and print
+	* Return: actual number of letters read and printed, 0 on failure
 */
-ssize_t custom_read_and_print(const char *filename, size_t letters)
-	{
-	char *custom_buffer;
-	ssize_t custom_fd;
-	ssize_t custom_bytes_read;
-	ssize_t custom_bytes_written;
+ssize_t read_textfile(const char *filename, size_t letters)
+{
+	int fd;
+	ssize_t bytes_read, bytes_written;
+	char *buffer;
 
-	custom_fd = open(filename, O_RDONLY);
-	if (custom_fd == -1)
+	if (filename == NULL)
 	return (0);
 
-	custom_buffer = malloc(sizeof(char) * letters);
-	if (custom_buffer == NULL)
-	{
-	close(custom_fd);
+	fd = open(filename, O_RDONLY);
+	if (fd == -1)
 	return (0);
-	}
 
-	custom_bytes_read = read(custom_fd, custom_buffer, letters);
-	if (custom_bytes_read == -1)
+	buffer = malloc(letters);
+	if (buffer == NULL)
 	{
-	free(custom_buffer);
-	close(custom_fd);
+	close(fd);
 	return (0);
 	}
 
-	custom_bytes_written = write(STDOUT_FILENO, custom_buffer, custom_bytes_read);
-
-	free(custom_buffer);
-	close(custom_fd);
-
-	if (custom_bytes_written == -1 || custom_bytes_written != custom_bytes_read)
+	bytes_read = read(fd, buffer, letters);
+	if (bytes_read == -1)
 	{
+	free(buffer);
+	close(fd);
 	return (0);
 	}
 
-	return (custom_bytes_written);
+	bytes_written = write(STDOUT_FILENO, buffer, bytes_read);
+	if (bytes_written == -1 || (size_t)bytes_written != (size_t)bytes_read)
+	{
+	free(buffer);
+	close(fd);
+	return (0);
+	}
+
+	free(buffer);
+	close(fd);
+
+	return (bytes_written);
 }
