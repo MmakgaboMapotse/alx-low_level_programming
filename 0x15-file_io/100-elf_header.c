@@ -21,8 +21,10 @@ void print_error(char *message)
 */
 void print_elf_header_info(Elf64_Ehdr *header)
 {
+
 	printf(" Magic: ");
 	for (int i = 0; i < EI_NIDENT; i++)
+
 	{
 	printf("%02x", header->e_ident[i]);
 	if (i < EI_NIDENT - 1)
