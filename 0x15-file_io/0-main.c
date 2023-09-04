@@ -7,7 +7,8 @@
  *
  * Return: Always 0.
  */
-int main(int ac, char **av) {
+int main(int ac, char **av)
+{
 
 	ssize_t n;
 
