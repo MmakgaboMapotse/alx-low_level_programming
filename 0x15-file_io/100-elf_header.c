@@ -5,7 +5,7 @@
 #include <stdlib.h>
 
 void check_elf(unsigned char *e_ident);
-void print_field(const char *field_name, unsigned long long value);
+void print_field(const char *field_name, unsigned long value);
 
 void check_elf(unsigned char *e_ident)
 {
@@ -17,9 +17,9 @@ void check_elf(unsigned char *e_ident)
 	}
 }
 
-void print_field(const char *field_name, unsigned long long value)
+void print_field(const char *field_name, unsigned long value)
 {
-	printf(" %s: %#llx\n", field_name, value);
+	printf(" %s: %#lx\n", field_name, value);
 }
 
 int main(int argc, char *argv[])
@@ -65,4 +65,3 @@ int main(int argc, char *argv[])
 	close(o);
 	return (0);
 }
-
